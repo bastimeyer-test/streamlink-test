@@ -20,6 +20,10 @@ log = logging.getLogger(__name__)
 Sequence = namedtuple("Sequence", "num segment")
 
 
+def something_not_test_and_covered():
+    pass
+
+
 def num_to_iv(n):
     return struct.pack(">8xq", n)
 
@@ -218,10 +222,12 @@ class HLSStreamWorker(SegmentedStreamWorker):
 
         self.reader.buffer.wait_free()
         log.debug("Reloading playlist")
-        res = self.session.http.get(self.stream.url,
-                                    exception=StreamError,
-                                    retries=self.playlist_reload_retries,
-                                    **self.reader.request_params)
+        res = self.session.http.get(
+            self.stream.url,
+            exception=StreamError,
+            retries=self.playlist_reload_retries,
+            **self.reader.request_params
+        )
         try:
             playlist = self._reload_playlist(res.text, res.url)
         except ValueError as err:

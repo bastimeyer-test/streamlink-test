@@ -125,6 +125,10 @@ Segment = namedtuple("Segment", "uri duration title key discontinuity ad byteran
 LOW_LATENCY_MAX_LIVE_EDGE = 2
 
 
+def something_not_test_and_covered():
+    pass
+
+
 class TwitchM3U8Parser(M3U8Parser):
     def parse_extinf(self, value):
         duration, title = super(TwitchM3U8Parser, self).parse_extinf(value)
@@ -136,7 +140,8 @@ class TwitchM3U8Parser(M3U8Parser):
     def parse_tag_ext_x_twitch_prefetch(self, value):
         segments = self.m3u8.segments
         if segments:
-            segments.append(segments[-1]._replace(uri=self.uri(value), prefetch=True))
+            clone = segments[-1]._replace(uri=self.uri(value), prefetch=True)
+            segments.append(clone)
 
     def get_segment(self, uri):
         byterange = self.state.pop("byterange", None)
