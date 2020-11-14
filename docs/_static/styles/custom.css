@@ -36,6 +36,14 @@ code.literal {
   font-size: var(--font-size--small);
 }
 
+strong.command {
+  padding: .1em .2em;
+  border-radius: .2em;
+  background: var(--color-background-secondary);
+  color: var(--color-api-name);
+  font: normal var(--font-size--small) var(--font-stack--monospace);
+}
+
 /*
   Sidebar/Menubar and related
 */
