@@ -1,0 +1,12 @@
+[build]
+  command = "pip install -U pip setuptools && pip install -e . && pip install -U -r docs-requirements.txt && make --directory=docs clean html"
+  publish = "docs/_build/html"
+  ignore = "[ $(git rev-parse --abbrev-ref HEAD) = master ] || git diff --quiet master HEAD docs/ docs-requirements.txt src/streamlink_cli/argparser.py"
+
+[build.environment]
+  PYTHON_VERSION = "3.7"
+
+[[redirects]]
+  from = "/latest/*"
+  to = "/:splat"
+  status = 301
